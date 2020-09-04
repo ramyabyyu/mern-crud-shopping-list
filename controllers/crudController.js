@@ -51,13 +51,13 @@ exports.createItem = (req, res) => {
 };
 
 /* 
-    @route      GET /api/item/isGraduate
-    @desc       find item where isGraduate=true
+    @route      GET /api/item/isComplete
+    @desc       find item where isComplete=true
     @access     public
 */
 
-exports.findIsGraduate = (req, res) => {
-  Crud.find({ isGraduate: true })
+exports.findIsComplete = (req, res) => {
+  Crud.find({ isComplete: true })
     .then((data) => {
       res.status(200).json(data);
     })
@@ -102,7 +102,7 @@ exports.deleteItem = (req, res) => {
 exports.update = (req, res) => {
   if (!req.body) {
     return res.status(400).send({
-      message: "Data to update can not be empty, fill it lol!",
+      message: "Data to update can not be empty, fill it up lol!",
     });
   }
 

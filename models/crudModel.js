@@ -10,22 +10,7 @@ const crudSchema = new mongoose.Schema({
     required: true,
   },
 
-  age: {
-    type: Number,
-    required: true,
-  },
-
-  email: {
-    type: String,
-    required: true,
-  },
-
-  majorField: {
-    type: String,
-    required: true,
-  },
-
-  isGraduate: {
+  isComplete: {
     type: Boolean,
     default: false,
   },

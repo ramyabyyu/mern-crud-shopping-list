@@ -15,9 +15,9 @@ router.post("/", crud.createItem);
 
 /* 
     find item with condition
-    isGraduate = true
+    isComplete = true
 */
-router.get("/isGraduate", crud.findIsGraduate);
+router.get("/isComplete", crud.findIsComplete);
 
 /* 
     delete one item by id
