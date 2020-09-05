@@ -3,7 +3,7 @@ const Crud = require("../models/crudModel");
 /* 
     @route      GET /api/item
     @desc       GET all items
-    @access     public
+    @access     Public
 */
 exports.getAllItems = (req, res) => {
   Crud.find()
@@ -20,7 +20,7 @@ exports.getAllItems = (req, res) => {
 /* 
     @route      POST /api/item
     @desc       create new item
-    @access     public
+    @access     Private
 */
 exports.createItem = (req, res) => {
   if (!req.body.name) {
@@ -53,7 +53,7 @@ exports.createItem = (req, res) => {
 /* 
     @route      GET /api/item/isComplete
     @desc       find item where isComplete=true
-    @access     public
+    @access     Private
 */
 
 exports.findIsComplete = (req, res) => {
@@ -90,38 +90,6 @@ exports.deleteItem = (req, res) => {
     .catch((err) => {
       res.status(400).send({
         message: "Can not find the given Id, try another lol",
-      });
-    });
-};
-
-/* 
-    @route      PUT /api/item/:id
-    @desc       update one item by id
-    @access     public
-*/
-exports.update = (req, res) => {
-  if (!req.body) {
-    return res.status(400).send({
-      message: "Data to update can not be empty, fill it up lol!",
-    });
-  }
-
-  const id = req.params.id;
-
-  Crud.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-    .then((data) => {
-      if (!data) {
-        res.status(400).send({
-          message: `Can not update item with id ${id}, maybe tutorial was not found, try another xixixi`,
-        });
-      } else
-        res.status(200).send({
-          message: "Updated one item Successfully",
-        });
-    })
-    .catch((err) => {
-      res.status(400).send({
-        message: "Error when updating item with id=" + id,
       });
     });
 };

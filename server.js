@@ -1,30 +1,35 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const crudApi = require("./route/api/crudApi");
 const path = require("path");
+const config = require("config");
 
 const app = express();
 
 /* 
     @Middleware
-    @body-parser
+    @express.json()
 */
-app.use(bodyParser.json());
+app.use(express.json());
 
 /* 
     @Database Configuration
 */
-const database = require("./config/database").mongoUrl;
+const database = config.get("mongoUrl");
 mongoose
-  .connect(database, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(database, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
   .then(() => console.log("Mongodb Connected"))
   .catch((err) => console.log("Errors occured while connecting to Mongodb"));
 
 /* 
     Set up APIs
 */
-app.use("/api/item", crudApi);
+app.use("/api/item", require("./route/api/crudApi"));
+app.use("/api/user", require("./route/api/userApi"));
+app.use("/api/auth", require("./route/api/authApi"));
 
 /* 
     Server static assets if in production
