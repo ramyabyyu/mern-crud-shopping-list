@@ -11,6 +11,36 @@ import {
   REGISTER_SUCCESS,
 } from "./types";
 
+// Register User
+export const register = ({ name, email, password }) => (dispatch) => {
+  // Headers
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  // Request Body
+  const body = JSON.stringify({ name, email, password });
+
+  axios
+    .post("/api/user/signup", body, config)
+    .then((res) =>
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data,
+      })
+    )
+    .catch((err) => {
+      dispatch(
+        returnErrors(err.response.data, err.response.status, "REGISTER_FAIL")
+      );
+      dispatch({
+        type: REGISTER_FAIL,
+      });
+    });
+};
+
 // Check token and load user
 export const loadUser = () => (dispatch, getState) => {
   // User loading
@@ -30,6 +60,13 @@ export const loadUser = () => (dispatch, getState) => {
         type: AUTH_ERROR,
       });
     });
+};
+
+// Logout User
+export const logout = () => {
+  return {
+    type: LOGOUT_SUCCESS,
+  };
 };
 
 export const tokenConfig = (getState) => {
